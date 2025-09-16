@@ -10,10 +10,10 @@ Power by trae and GLM-4.5
 
 ## 工具组成
 
-1. **exam-capture.py** - 遍历试卷每一题并捕获HTML
+1. **exam-capture.py** - 遍历试卷每一页并捕获HTML
 2. **html-to-txt.py** - 将HTML处理为TXT文件
-3. **exam-answer.py** - 根据AI答案批量选择答案
-4. **test/实际答案数量检测.py** - 检查答案文件中的大写字母数量
+3. **exam-answer.py** - 根据预置答案批量答题
+4. **test/实际答案数量检测.py** - 检查文件中的大写字母数量
 
 ## 注意事项
 
@@ -99,7 +99,7 @@ python exam-answer.py
 <br>
 <br>
 
-<p style="color: #FF6B6B; font-weight: bold; text-align: center; font-size: 1.1em;">单页多题的自己选一下吧，答案都给你了 ~(￣▽￣)~*</p>
+<p style="color: #FF6B6B; font-weight: bold; text-align: center; font-size: 1.1em;">单页多题的自己选一下吧~答案都给你了~(￣▽￣)~*</p>
 
 <br>
 <br>
