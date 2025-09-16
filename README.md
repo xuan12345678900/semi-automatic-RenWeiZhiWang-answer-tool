@@ -99,7 +99,7 @@ python exam-answer.py
 <br>
 <br>
 
-<p style="color: #FF6B6B; font-weight: bold; text-align: center; font-size: 1.1em;">单页多题的自己选一下吧~答案都给你了~(￣▽￣)~*</p>
+<p style="color: #FF6B6B; font-weight: bold; text-align: center; font-size: 1.1em;">单页多题的自己选一下吧~答案都给你了~<br>~(￣▽￣)~*</p>
 
 <br>
 <br>
