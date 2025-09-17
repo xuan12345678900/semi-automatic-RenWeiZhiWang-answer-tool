@@ -206,10 +206,52 @@ class ExamToolSuite:
         
         return self.total_questions
     
+    def clear_captured_html_folder(self):
+        """
+        清空captured_html文件夹中的所有HTML文件
+        """
+        try:
+            # 检查目录是否存在
+            if not os.path.exists(self.captured_html_dir):
+                print(f"目录 {self.captured_html_dir} 不存在，无需清空")
+                return True
+            
+            # 获取目录中的所有文件
+            files = os.listdir(self.captured_html_dir)
+            
+            # 如果目录为空，无需操作
+            if not files:
+                print(f"目录 {self.captured_html_dir} 已经为空")
+                return True
+            
+            # 删除所有HTML文件
+            deleted_count = 0
+            for file in files:
+                if file.endswith('.html'):
+                    file_path = os.path.join(self.captured_html_dir, file)
+                    try:
+                        os.remove(file_path)
+                        deleted_count += 1
+                        print(f"已删除: {file_path}")
+                    except Exception as e:
+                        print(f"删除文件 {file_path} 时出错: {e}")
+            
+            print(f"清空操作完成，共删除 {deleted_count} 个HTML文件")
+            return True
+            
+        except Exception as e:
+            print(f"清空captured_html文件夹时出错: {e}")
+            return False
+
     def capture_all_questions(self):
         """
         捕获所有题目的HTML
         """
+        # 首先清空captured_html文件夹
+        print("正在清空captured_html文件夹...")
+        if not self.clear_captured_html_folder():
+            print("清空captured_html文件夹失败，继续执行捕获操作")
+        
         # 确保浏览器已打开
         if not self.driver:
             print("浏览器未打开，正在重新打开...")
@@ -432,6 +474,11 @@ class ExamToolSuite:
         """
         将所有HTML文件转换为单个TXT文件
         """
+        # 首先清空captured_html文件夹
+        print("正在清空captured_html文件夹...")
+        if not self.clear_captured_html_folder():
+            print("清空captured_html文件夹失败，继续执行转换操作")
+        
         # 获取所有HTML文件
         html_files = [f for f in os.listdir(self.captured_html_dir) if f.endswith('.html')]
         html_files.sort(key=lambda x: int(re.search(r'第(\d+)题\.html', x).group(1)))  # 按题号排序
