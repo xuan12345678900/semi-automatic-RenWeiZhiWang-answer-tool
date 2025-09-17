@@ -158,15 +158,7 @@ python exam-answer.py
 
 ### 程序运行视频演示（整活向）
 
-<video width="800" height="450" controls>
-  <source src="https://raw.githubusercontent.com/xuan12345678900/semi-automatic-RenWeiZhiWang-answer-tool/main/video/开了.mp4" type="video/mp4">
-  您的浏览器不支持HTML5视频播放，请点击下方链接下载观看。
-</video>
-
-**如果视频无法播放，可以点击以下链接直接下载观看：**
-[下载视频演示文件](https://raw.githubusercontent.com/xuan12345678900/semi-automatic-RenWeiZhiWang-answer-tool/main/video/开了.mp4)
-
-该视频简单展示了正常情况的使用流程
+https://raw.githubusercontent.com/xuan12345678900/semi-automatic-RenWeiZhiWang-answer-tool/main/video/开了.mp4
 
 ## 故障排除
 
