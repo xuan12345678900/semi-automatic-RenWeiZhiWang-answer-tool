@@ -163,6 +163,9 @@ python exam-answer.py
   您的浏览器不支持HTML5视频播放，请点击下方链接下载观看。
 </video>
 
+**如果视频无法播放，可以点击以下链接直接下载观看：**
+[下载视频演示文件](https://raw.githubusercontent.com/xuan12345678900/semi-automatic-RenWeiZhiWang-answer-tool/main/video/开了.mp4)
+
 该视频简单展示了正常情况的使用流程
 
 ## 故障排除
