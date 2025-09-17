@@ -474,11 +474,6 @@ class ExamToolSuite:
         """
         将所有HTML文件转换为单个TXT文件
         """
-        # 首先清空captured_html文件夹
-        print("正在清空captured_html文件夹...")
-        if not self.clear_captured_html_folder():
-            print("清空captured_html文件夹失败，继续执行转换操作")
-        
         # 获取所有HTML文件
         html_files = [f for f in os.listdir(self.captured_html_dir) if f.endswith('.html')]
         html_files.sort(key=lambda x: int(re.search(r'第(\d+)题\.html', x).group(1)))  # 按题号排序
