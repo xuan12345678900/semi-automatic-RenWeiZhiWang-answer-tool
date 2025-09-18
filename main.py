@@ -770,16 +770,14 @@ class ExamToolSuite:
         try:
             # 获取脚本所在目录
             script_dir = os.path.dirname(os.path.abspath(__file__))
-            ai_prompt_file = os.path.join(script_dir, "AI批量答题提示词及操作简介.txt")
             questions_file = os.path.join(script_dir, "questions.txt")
             answers_file = os.path.join(script_dir, "answers.txt")
             
-            # 读取AI提示词文件
-            with open(ai_prompt_file, 'r', encoding='utf-8') as f:
-                lines = f.readlines()
+            # 嵌入的第一段内容：按顺序简要回答以下题目，区分单题和共用题干的多题，勤搜索保证正确率
+            prompt_part1 = "按顺序简要回答以下题目，区分单题和共用题干的多题，勤搜索保证正确率"
             
-            # 提取需要的行
-            prompt_part3 = lines[6].strip() + "\n" + lines[7].strip() + "\n" + lines[8].strip() + "\n" + lines[9].strip()  # 第7-10行
+            # 嵌入的第三段内容：按顺序列出刚刚的所有对应的题号及答案，区分单题和共用题干的多题，格式参考
+            prompt_part3 = "按顺序列出刚刚的所有对应的题号及答案，区分单题和共用题干的多题，格式参考：1.B\n2.D\n3.D\n4-5.A，B\n6-8.A，B，C"
             
             # 读取questions.txt文件
             with open(questions_file, 'r', encoding='utf-8') as f:
@@ -797,12 +795,12 @@ class ExamToolSuite:
                             answer = parts[1].strip()
                             formatted_answers += f"{question_num}.{answer}\n"
             
-            # 第一段：按指定格式列出题号及答案
-            print("\n正在复制第一段内容：格式化答案...")
+            # 第一段：按顺序简要回答以下题目
+            print("\n正在复制第一段内容：AI提示词第一部分...")
             print("-" * 50)
-            print(formatted_answers)
+            print(prompt_part1)
             print("-" * 50)
-            self.copy_to_clipboard(formatted_answers)
+            self.copy_to_clipboard(prompt_part1)
             input("第一段内容已复制到剪贴板，按Enter键继续...")
             
             # 第二段：questions.txt完整内容
@@ -813,7 +811,7 @@ class ExamToolSuite:
             self.copy_to_clipboard(questions_content)
             input("第二段内容已复制到剪贴板，按Enter键继续...")
             
-            # 第三段：AI提示词第三部分
+            # 第三段：按顺序列出题号及答案的格式参考
             print("\n正在复制第三段内容：AI提示词第三部分...")
             print("-" * 50)
             print(prompt_part3)
