@@ -723,6 +723,7 @@ class ExamToolSuite:
             script_dir = os.path.dirname(os.path.abspath(__file__))
             ai_prompt_file = os.path.join(script_dir, "AI批量答题提示词及操作简介.txt")
             questions_file = os.path.join(script_dir, "questions.txt")
+            answers_file = os.path.join(script_dir, "answers.txt")
             
             # 读取AI提示词文件
             with open(ai_prompt_file, 'r', encoding='utf-8') as f:
@@ -736,78 +737,60 @@ class ExamToolSuite:
             with open(questions_file, 'r', encoding='utf-8') as f:
                 questions_content = f.read()
             
-            # 显示菜单让用户选择要复制的内容
-            print("\n请选择要复制的内容:")
-            print("1. 复制AI提示词第一部分（第3行内容）")
-            print("2. 复制题目内容（questions.txt完整内容）")
-            print("3. 复制AI提示词第三部分（第7-10行内容）")
-            print("4. 复制全部内容")
-            print("0. 返回主菜单")
-            
-            choice = input("请输入选择 (0-4): ").strip()
-            
-            if choice == "1":
-                # 复制第一部分
-                if self.copy_to_clipboard(prompt_part1):
-                    print("\nAI提示词第一部分已复制到剪贴板")
-                    print("-" * 50)
-                    print(prompt_part1)
-                    print("-" * 50)
-                    return True
-                else:
-                    print("复制到剪贴板失败")
-                    return False
-                    
-            elif choice == "2":
-                # 复制题目内容
-                if self.copy_to_clipboard(questions_content):
-                    print("\n题目内容已复制到剪贴板")
-                    print("-" * 50)
-                    print("题目内容已复制（内容较长，此处不显示）")
-                    print("-" * 50)
-                    return True
-                else:
-                    print("复制到剪贴板失败")
-                    return False
-                    
-            elif choice == "3":
-                # 复制第三部分
-                if self.copy_to_clipboard(prompt_part3):
-                    print("\nAI提示词第三部分已复制到剪贴板")
-                    print("-" * 50)
-                    print(prompt_part3)
-                    print("-" * 50)
-                    return True
-                else:
-                    print("复制到剪贴板失败")
-                    return False
-                    
-            elif choice == "4":
-                # 复制全部内容
-                clipboard_text = f"{prompt_part1}\n\n{questions_content}\n\n{prompt_part3}"
-                if self.copy_to_clipboard(clipboard_text):
-                    print("\n全部内容已复制到剪贴板")
-                    print("-" * 50)
-                    print("AI提示词第一部分:")
-                    print(prompt_part1)
-                    print("-" * 50)
-                    print("题目内容已复制（内容较长，此处不显示）")
-                    print("-" * 50)
-                    print("AI提示词第三部分:")
-                    print(prompt_part3)
-                    print("-" * 50)
-                    return True
-                else:
-                    print("复制到剪贴板失败")
-                    return False
-                    
-            elif choice == "0":
-                # 返回主菜单
-                return False
+            # 读取answers.txt文件并格式化为第一部分内容
+            try:
+                with open(answers_file, 'r', encoding='utf-8') as f:
+                    answers_content = f.read().strip()
                 
+                # 将答案格式化为要求的格式
+                formatted_answers = "按顺序列出刚刚的所有对应的题号及答案，区分单题和共用题干的多题，格式参考：\n"
+                formatted_answers += answers_content
+            except:
+                formatted_answers = "按顺序列出刚刚的所有对应的题号及答案，区分单题和共用题干的多题，格式参考：\n1.B\n2.D\n3.D\n4-5.A，B\n6-8.A，B，C"
+            
+            print("\n开始依次复制三段内容到剪贴板...")
+            
+            # 第一段：格式化的答案
+            print("\n正在复制第一段内容（格式化的答案）...")
+            if self.copy_to_clipboard(formatted_answers):
+                print("第一段内容已复制到剪贴板")
+                print("-" * 50)
+                print(formatted_answers[:200] + "..." if len(formatted_answers) > 200 else formatted_answers)
+                print("-" * 50)
             else:
-                print("无效选择，请重新输入")
-                return self.copy_ai_prompts()
+                print("复制第一段内容失败")
+                return False
+            
+            # 等待用户确认
+            input("请按Enter键继续复制第二段内容...")
+            
+            # 第二段：questions.txt的所有内容
+            print("\n正在复制第二段内容（questions.txt的所有内容）...")
+            if self.copy_to_clipboard(questions_content):
+                print("第二段内容已复制到剪贴板")
+                print("-" * 50)
+                print("题目内容已复制（内容较长，此处不显示）")
+                print("-" * 50)
+            else:
+                print("复制第二段内容失败")
+                return False
+            
+            # 等待用户确认
+            input("请按Enter键继续复制第三段内容...")
+            
+            # 第三段：AI提示词第三部分
+            print("\n正在复制第三段内容（AI提示词第三部分）...")
+            if self.copy_to_clipboard(prompt_part3):
+                print("第三段内容已复制到剪贴板")
+                print("-" * 50)
+                print(prompt_part3)
+                print("-" * 50)
+            else:
+                print("复制第三段内容失败")
+                return False
+            
+            print("\n所有三段内容已成功复制到剪贴板！")
+            return True
                 
         except Exception as e:
             print(f"复制AI提示词时出错: {e}")
