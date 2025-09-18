@@ -6,6 +6,8 @@ import sys
 import time
 import re
 import tempfile
+import tkinter as tk
+from tkinter import Tk
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -673,13 +675,88 @@ class ExamToolSuite:
             except Exception as e:
                 print(f"清理临时用户数据目录失败: {e}")
     
+    def copy_to_clipboard(self, text):
+        """复制文本到剪贴板"""
+        try:
+            r = Tk()
+            r.withdraw()  # 隐藏主窗口
+            r.clipboard_clear()  # 清空剪贴板
+            r.clipboard_append(text)  # 添加文本到剪贴板
+            r.update()  # 更新剪贴板
+            r.destroy()  # 销毁窗口
+            print("文本已成功复制到剪贴板")
+            return True
+        except Exception as e:
+            print(f"复制到剪贴板失败: {e}")
+            return False
+    
+    def copy_ai_prompts(self):
+        """复制AI提示词到剪贴板"""
+        try:
+            # 获取脚本所在目录
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            ai_prompt_file = os.path.join(script_dir, "AI批量答题提示词及操作简介.txt")
+            questions_file = os.path.join(script_dir, "questions.txt")
+            
+            # 读取AI提示词文件
+            with open(ai_prompt_file, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
+            
+            # 提取需要的行
+            prompt_part1 = lines[2].strip()  # 第3行
+            prompt_part3 = lines[6].strip() + "\n" + lines[7].strip() + "\n" + lines[8].strip() + "\n" + lines[9].strip()  # 第7-10行
+            
+            # 读取questions.txt文件
+            with open(questions_file, 'r', encoding='utf-8') as f:
+                questions_content = f.read()
+            
+            # 构建要复制的文本
+            clipboard_text = f"{prompt_part1}\n\n{questions_content}\n\n{prompt_part3}"
+            
+            # 复制到剪贴板
+            if self.copy_to_clipboard(clipboard_text):
+                print("AI提示词和题目内容已复制到剪贴板")
+                print("\n提示词内容:")
+                print("-" * 50)
+                print(prompt_part1)
+                print("-" * 50)
+                print("题目内容已复制")
+                print("-" * 50)
+                print(prompt_part3)
+                print("-" * 50)
+                return True
+            else:
+                print("复制到剪贴板失败")
+                return False
+                
+        except Exception as e:
+            print(f"复制AI提示词时出错: {e}")
+            return False
+    
+    def capture_and_convert(self):
+        """捕获HTML并立即转换为TXT"""
+        print("\n开始批量捕获所有题目的HTML并转换为TXT...")
+        
+        # 首先捕获HTML
+        if not self.capture_all_questions():
+            print("捕获HTML失败")
+            return False
+        
+        # 然后转换为TXT
+        if not self.convert_html_to_txt():
+            print("转换为TXT失败")
+            return False
+        
+        print("\n捕获HTML并转换为TXT完成")
+        return True
+    
     def show_menu(self):
         """显示主菜单"""
         print("\n" + "="*50)
         print("考试工具套件 - 主菜单")
         print("="*50)
-        print("1. 批量捕获所有题目的HTML")
-        print("2. 批量格式化题目HTML为TXT")
+        print("1. 批量捕获所有题目的HTML并转换为TXT")
+        print("2. 复制AI提示词和题目内容到剪贴板")
         print("3. 批量选择答案")
         print("4. 关闭浏览器并退出")
         print("="*50)
@@ -694,12 +771,12 @@ class ExamToolSuite:
             choice = input("请选择功能 (1-4): ").strip()
             
             if choice == "1":
-                print("\n开始批量捕获所有题目的HTML...")
-                self.capture_all_questions()
+                print("\n开始批量捕获所有题目的HTML并转换为TXT...")
+                self.capture_and_convert()
                 
             elif choice == "2":
-                print("\n开始批量格式化题目HTML为TXT...")
-                self.convert_html_to_txt()
+                print("\n开始复制AI提示词和题目内容到剪贴板...")
+                self.copy_ai_prompts()
                 
             elif choice == "3":
                 print("\n开始批量选择答案...")
