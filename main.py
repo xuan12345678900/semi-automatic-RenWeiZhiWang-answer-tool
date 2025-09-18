@@ -6,8 +6,7 @@ import sys
 import time
 import re
 import tempfile
-import tkinter as tk
-from tkinter import Tk
+import subprocess
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -678,14 +677,15 @@ class ExamToolSuite:
     def copy_to_clipboard(self, text):
         """复制文本到剪贴板"""
         try:
-            r = Tk()
-            r.withdraw()  # 隐藏主窗口
-            r.clipboard_clear()  # 清空剪贴板
-            r.clipboard_append(text)  # 添加文本到剪贴板
-            r.update()  # 更新剪贴板
-            r.destroy()  # 销毁窗口
-            print("文本已成功复制到剪贴板")
-            return True
+            # 使用Windows的clip命令复制文本到剪贴板
+            process = subprocess.Popen(['clip'], stdin=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+            process.communicate(input=text.encode('utf-8'))
+            if process.returncode == 0:
+                print("文本已成功复制到剪贴板")
+                return True
+            else:
+                print("复制到剪贴板失败")
+                return False
         except Exception as e:
             print(f"复制到剪贴板失败: {e}")
             return False
