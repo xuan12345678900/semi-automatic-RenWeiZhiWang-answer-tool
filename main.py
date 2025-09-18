@@ -677,41 +677,90 @@ class ExamToolSuite:
     def copy_to_clipboard(self, text):
         """复制文本到剪贴板"""
         try:
-            # 使用Windows的clip命令复制文本到剪贴板
-            # 尝试使用不同的编码方式
+            import ctypes
+            from ctypes import wintypes
+            
+            # 定义Windows API函数
+            user32 = ctypes.WinDLL('user32')
+            kernel32 = ctypes.WinDLL('kernel32')
+            
+            # 定义常量
+            CF_UNICODETEXT = 13
+            GMEM_MOVEABLE = 0x0002
+            
+            # 定义函数原型
+            OpenClipboard = user32.OpenClipboard
+            OpenClipboard.argtypes = [wintypes.HWND]
+            OpenClipboard.restype = wintypes.BOOL
+            
+            CloseClipboard = user32.CloseClipboard
+            CloseClipboard.argtypes = []
+            CloseClipboard.restype = wintypes.BOOL
+            
+            EmptyClipboard = user32.EmptyClipboard
+            EmptyClipboard.argtypes = []
+            EmptyClipboard.restype = wintypes.BOOL
+            
+            SetClipboardData = user32.SetClipboardData
+            SetClipboardData.argtypes = [wintypes.UINT, wintypes.HANDLE]
+            SetClipboardData.restype = wintypes.HANDLE
+            
+            GlobalAlloc = kernel32.GlobalAlloc
+            GlobalAlloc.argtypes = [wintypes.UINT, ctypes.c_size_t]
+            GlobalAlloc.restype = wintypes.HGLOBAL
+            
+            GlobalLock = kernel32.GlobalLock
+            GlobalLock.argtypes = [wintypes.HGLOBAL]
+            GlobalLock.restype = wintypes.LPVOID
+            
+            GlobalUnlock = kernel32.GlobalUnlock
+            GlobalUnlock.argtypes = [wintypes.HGLOBAL]
+            GlobalUnlock.restype = wintypes.BOOL
+            
+            GlobalFree = kernel32.GlobalFree
+            GlobalFree.argtypes = [wintypes.HGLOBAL]
+            GlobalFree.restype = wintypes.HGLOBAL
+            
+            # 打开剪贴板
+            if not OpenClipboard(None):
+                print("复制到剪贴板失败: 无法打开剪贴板")
+                return False
+            
             try:
-                # 首先尝试UTF-8编码
-                process = subprocess.Popen(['clip'], stdin=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-                process.communicate(input=text.encode('utf-8'))
-                if process.returncode == 0:
-                    print("文本已成功复制到剪贴板")
-                    return True
-            except:
-                pass
-            
-            # 如果UTF-8失败，尝试GBK编码
-            try:
-                process = subprocess.Popen(['clip'], stdin=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-                process.communicate(input=text.encode('gbk', errors='ignore'))
-                if process.returncode == 0:
-                    print("文本已成功复制到剪贴板")
-                    return True
-            except:
-                pass
-            
-            # 如果GBK也失败，尝试使用Unicode
-            try:
-                process = subprocess.Popen(['clip'], stdin=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-                process.communicate(input=text.encode('utf-16-le'))
-                if process.returncode == 0:
-                    print("文本已成功复制到剪贴板")
-                    return True
-            except:
-                pass
-            
-            print("所有编码方式都失败，无法复制到剪贴板")
-            return False
-            
+                # 清空剪贴板
+                EmptyClipboard()
+                
+                # 分配内存
+                text_bytes = text.encode('utf-16-le') + b'\x00\x00'  # UTF-16-LE编码，以双空字节结尾
+                size = len(text_bytes)
+                h_mem = GlobalAlloc(GMEM_MOVEABLE, size)
+                if not h_mem:
+                    print("复制到剪贴板失败: 无法分配内存")
+                    return False
+                
+                # 锁定内存并复制数据
+                mem_ptr = GlobalLock(h_mem)
+                if not mem_ptr:
+                    GlobalFree(h_mem)
+                    print("复制到剪贴板失败: 无法锁定内存")
+                    return False
+                
+                ctypes.memmove(mem_ptr, text_bytes, size)
+                GlobalUnlock(h_mem)
+                
+                # 设置剪贴板数据
+                if not SetClipboardData(CF_UNICODETEXT, h_mem):
+                    GlobalFree(h_mem)
+                    print("复制到剪贴板失败: 无法设置剪贴板数据")
+                    return False
+                
+                print("文本已成功复制到剪贴板")
+                return True
+                
+            finally:
+                # 关闭剪贴板
+                CloseClipboard()
+                
         except Exception as e:
             print(f"复制到剪贴板失败: {e}")
             return False
@@ -730,66 +779,49 @@ class ExamToolSuite:
                 lines = f.readlines()
             
             # 提取需要的行
-            prompt_part1 = lines[2].strip()  # 第3行
             prompt_part3 = lines[6].strip() + "\n" + lines[7].strip() + "\n" + lines[8].strip() + "\n" + lines[9].strip()  # 第7-10行
             
             # 读取questions.txt文件
             with open(questions_file, 'r', encoding='utf-8') as f:
                 questions_content = f.read()
             
-            # 读取answers.txt文件并格式化为第一部分内容
-            try:
-                with open(answers_file, 'r', encoding='utf-8') as f:
-                    answers_content = f.read().strip()
-                
-                # 将答案格式化为要求的格式
-                formatted_answers = "按顺序列出刚刚的所有对应的题号及答案，区分单题和共用题干的多题，格式参考：\n"
-                formatted_answers += answers_content
-            except:
-                formatted_answers = "按顺序列出刚刚的所有对应的题号及答案，区分单题和共用题干的多题，格式参考：\n1.B\n2.D\n3.D\n4-5.A，B\n6-8.A，B，C"
+            # 读取answers.txt文件并格式化
+            formatted_answers = ""
+            with open(answers_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:  # 跳过空行
+                        parts = line.split(':', 1)
+                        if len(parts) == 2:
+                            question_num = parts[0].strip()
+                            answer = parts[1].strip()
+                            formatted_answers += f"{question_num}.{answer}\n"
             
-            print("\n开始依次复制三段内容到剪贴板...")
+            # 第一段：按指定格式列出题号及答案
+            print("\n正在复制第一段内容：格式化答案...")
+            print("-" * 50)
+            print(formatted_answers)
+            print("-" * 50)
+            self.copy_to_clipboard(formatted_answers)
+            input("第一段内容已复制到剪贴板，按Enter键继续...")
             
-            # 第一段：格式化的答案
-            print("\n正在复制第一段内容（格式化的答案）...")
-            if self.copy_to_clipboard(formatted_answers):
-                print("第一段内容已复制到剪贴板")
-                print("-" * 50)
-                print(formatted_answers[:200] + "..." if len(formatted_answers) > 200 else formatted_answers)
-                print("-" * 50)
-            else:
-                print("复制第一段内容失败")
-                return False
-            
-            # 等待用户确认
-            input("请按Enter键继续复制第二段内容...")
-            
-            # 第二段：questions.txt的所有内容
-            print("\n正在复制第二段内容（questions.txt的所有内容）...")
-            if self.copy_to_clipboard(questions_content):
-                print("第二段内容已复制到剪贴板")
-                print("-" * 50)
-                print("题目内容已复制（内容较长，此处不显示）")
-                print("-" * 50)
-            else:
-                print("复制第二段内容失败")
-                return False
-            
-            # 等待用户确认
-            input("请按Enter键继续复制第三段内容...")
+            # 第二段：questions.txt完整内容
+            print("\n正在复制第二段内容：题目完整内容...")
+            print("-" * 50)
+            print("题目内容已复制（内容较长，此处不显示）")
+            print("-" * 50)
+            self.copy_to_clipboard(questions_content)
+            input("第二段内容已复制到剪贴板，按Enter键继续...")
             
             # 第三段：AI提示词第三部分
-            print("\n正在复制第三段内容（AI提示词第三部分）...")
-            if self.copy_to_clipboard(prompt_part3):
-                print("第三段内容已复制到剪贴板")
-                print("-" * 50)
-                print(prompt_part3)
-                print("-" * 50)
-            else:
-                print("复制第三段内容失败")
-                return False
+            print("\n正在复制第三段内容：AI提示词第三部分...")
+            print("-" * 50)
+            print(prompt_part3)
+            print("-" * 50)
+            self.copy_to_clipboard(prompt_part3)
+            input("第三段内容已复制到剪贴板，按Enter键继续...")
             
-            print("\n所有三段内容已成功复制到剪贴板！")
+            print("\n所有内容已按顺序复制到剪贴板！")
             return True
                 
         except Exception as e:
