@@ -774,10 +774,10 @@ class ExamToolSuite:
             answers_file = os.path.join(script_dir, "answers.txt")
             
             # 嵌入的第一段内容：按顺序简要回答以下题目，区分单题和共用题干的多题，勤搜索保证正确率
-            prompt_part1 = "按顺序简要回答以下题目，区分单题和共用题干的多题，勤搜索保证正确率"
+            prompt_part1 = "按顺序简要回答我将给出的题目（需要一点简单解释），区分单题和共用题干的多题，勤搜索保证正确率，是否明白"
             
             # 嵌入的第三段内容：按顺序列出刚刚的所有对应的题号及答案，区分单题和共用题干的多题，格式参考
-            prompt_part3 = "按顺序列出刚刚的所有对应的题号及答案，区分单题和共用题干的多题，格式参考：1.B\n2.D\n3.D\n4-5.A，B\n6-8.A，B，C"
+            prompt_part3 = "按顺序列出刚刚回答的所有对应的题号及答案，区分单题和共用题干的多题，格式参考：单题：\n1.B\n2.D\n3.D\n多题：\n4-5.A，B\n6-8.A，B，C"
             
             # 读取questions.txt文件
             with open(questions_file, 'r', encoding='utf-8') as f:
