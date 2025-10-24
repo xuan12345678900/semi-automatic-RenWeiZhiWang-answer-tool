@@ -158,7 +158,7 @@ python exam-answer.py
 
 ### 程序运行视频演示（整活向）
 
-[程序运行视频演示（整活向）](https://github.com/xuan12345678900/semi-automatic-RenWeiZhiWang-answer-tool/blob/main/video/%E5%BC%80%E4%BA%86.mp4)
+[程序运行视频演示](https://github.com/xuan12345678900/semi-automatic-RenWeiZhiWang-answer-tool/blob/main/演示.mp4)
 
 ## 故障排除
 
