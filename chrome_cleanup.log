@@ -1,0 +1,88 @@
+2025-11-24 17:38:47,391 - INFO - 当前Chrome进程状态:
+2025-11-24 17:38:47,402 - INFO -   未发现运行中的Chrome进程
+2025-11-24 17:38:47,403 - INFO - 共发现 0 个Chrome进程
+2025-11-24 17:38:52,648 - INFO - ============================================================
+2025-11-24 17:38:52,648 - INFO - 开始Chrome浏览器完整清理流程
+2025-11-24 17:38:52,648 - INFO - ============================================================
+2025-11-24 17:38:52,648 - INFO - 正在查找Chrome进程...
+2025-11-24 17:38:55,205 - INFO - 共发现 0 个Chrome进程和 0 个用户数据目录
+2025-11-24 17:38:55,215 - INFO - 未发现Chrome进程需要终止
+2025-11-24 17:38:55,215 - INFO - 正在通过端口查找Chrome进程...
+2025-11-24 17:38:55,251 - INFO - 未发现需要清理的用户数据目录
+2025-11-24 17:38:55,251 - INFO - 正在清理临时Chrome目录...
+2025-11-24 17:38:55,260 - INFO - 正在清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_BITS_8012_1991080168
+2025-11-24 17:38:55,260 - INFO - 已清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_BITS_8012_1991080168
+2025-11-24 17:38:55,260 - INFO - 正在清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_1be9218393094aeca4910e0ace726b7f
+2025-11-24 17:38:55,301 - INFO - 已清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_1be9218393094aeca4910e0ace726b7f
+2025-11-24 17:38:55,302 - INFO - 正在清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_28bedb94c9d4407287050f0b3ebe672e
+2025-11-24 17:38:55,372 - INFO - 已清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_28bedb94c9d4407287050f0b3ebe672e
+2025-11-24 17:38:55,372 - INFO - 正在清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_293a4fe7dcf24732901bb4dc84fa8201
+2025-11-24 17:38:55,429 - INFO - 已清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_293a4fe7dcf24732901bb4dc84fa8201
+2025-11-24 17:38:55,429 - INFO - 正在清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_37984_0e40d78b2e33484f8afc44e49c1b08f2
+2025-11-24 17:38:55,451 - INFO - 已清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_37984_0e40d78b2e33484f8afc44e49c1b08f2
+2025-11-24 17:38:55,452 - INFO - 正在清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_37984_1d5241a58f074941a4276b2530696c13
+2025-11-24 17:38:55,487 - INFO - 已清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_37984_1d5241a58f074941a4276b2530696c13
+2025-11-24 17:38:55,487 - INFO - 正在清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_37984_850614a8cbed4a68b8c16a9afccd3eb3
+2025-11-24 17:38:55,545 - INFO - 已清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_37984_850614a8cbed4a68b8c16a9afccd3eb3
+2025-11-24 17:38:55,545 - INFO - 正在清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_ab57e714092f46b4a818d79484361d3f
+2025-11-24 17:38:55,612 - INFO - 已清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_ab57e714092f46b4a818d79484361d3f
+2025-11-24 17:38:55,612 - INFO - 正在清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_ccc4c03afcc84903a722ac17358a7a12
+2025-11-24 17:38:55,676 - INFO - 已清理临时目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_ccc4c03afcc84903a722ac17358a7a12
+2025-11-24 17:38:55,719 - INFO - 已清理 9 个临时Chrome目录
+2025-11-24 17:38:55,719 - INFO - ============================================================
+2025-11-24 17:38:55,719 - INFO - Chrome浏览器清理流程完成
+2025-11-24 17:38:55,719 - INFO - ============================================================
+2025-11-24 17:40:50,950 - INFO - 当前Chrome进程状态:
+2025-11-24 17:40:50,952 - INFO -   运行中的Chrome进程: PID=2344, 名称=chrome.exe
+2025-11-24 17:40:50,954 - INFO -   运行中的Chrome进程: PID=7464, 名称=chrome.exe
+2025-11-24 17:40:50,955 - INFO -   运行中的Chrome进程: PID=10384, 名称=chrome.exe
+2025-11-24 17:40:50,955 - INFO -   运行中的Chrome进程: PID=11908, 名称=chrome.exe
+2025-11-24 17:40:50,957 - INFO -   运行中的Chrome进程: PID=18132, 名称=chrome.exe
+2025-11-24 17:40:50,959 - INFO -   运行中的Chrome进程: PID=28728, 名称=chrome.exe
+2025-11-24 17:40:50,959 - INFO -   运行中的Chrome进程: PID=29992, 名称=chrome.exe
+2025-11-24 17:40:50,961 - INFO -   运行中的Chrome进程: PID=33904, 名称=chrome.exe
+2025-11-24 17:40:50,962 - INFO -   运行中的Chrome进程: PID=38208, 名称=chrome.exe
+2025-11-24 17:40:50,962 - INFO - 共发现 9 个Chrome进程
+2025-11-24 17:40:53,253 - INFO - ============================================================
+2025-11-24 17:40:53,253 - INFO - 开始Chrome浏览器完整清理流程
+2025-11-24 17:40:53,253 - INFO - ============================================================
+2025-11-24 17:40:53,253 - INFO - 正在查找Chrome进程...
+2025-11-24 17:40:54,523 - INFO - 发现Chrome进程: PID=2344, 名称=chrome.exe
+2025-11-24 17:40:54,523 - INFO - 发现用户数据目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_a5c6ddccb7ee4c9ea72a86c59ab29888
+2025-11-24 17:40:54,526 - INFO - 发现Chrome进程: PID=7464, 名称=chrome.exe
+2025-11-24 17:40:54,526 - INFO - 发现Chrome进程: PID=10384, 名称=chrome.exe
+2025-11-24 17:40:54,527 - INFO - 发现Chrome进程: PID=11908, 名称=chrome.exe
+2025-11-24 17:40:55,807 - INFO - 发现Chrome进程: PID=18132, 名称=chrome.exe
+2025-11-24 17:40:55,810 - INFO - 发现Chrome进程: PID=28728, 名称=chrome.exe
+2025-11-24 17:40:55,810 - INFO - 发现Chrome进程: PID=29992, 名称=chrome.exe
+2025-11-24 17:40:55,812 - INFO - 发现Chrome进程: PID=38208, 名称=chrome.exe
+2025-11-24 17:40:55,813 - INFO - 共发现 8 个Chrome进程和 1 个用户数据目录
+2025-11-24 17:40:55,813 - INFO - 正在终止Chrome进程...
+2025-11-24 17:40:55,813 - INFO - 正在终止进程 PID=2344...
+2025-11-24 17:40:55,819 - INFO - 进程 PID=2344 已优雅退出
+2025-11-24 17:40:55,820 - INFO - 正在终止进程 PID=7464...
+2025-11-24 17:40:55,823 - INFO - 进程 PID=7464 已优雅退出
+2025-11-24 17:40:55,823 - INFO - 正在终止进程 PID=10384...
+2025-11-24 17:40:55,897 - INFO - 进程 PID=10384 已优雅退出
+2025-11-24 17:40:55,898 - INFO - 正在终止进程 PID=11908...
+2025-11-24 17:40:55,898 - ERROR - 终止进程 PID=11908 失败: process no longer exists (pid=11908, name='chrome.exe')
+2025-11-24 17:40:55,898 - INFO - 正在终止进程 PID=18132...
+2025-11-24 17:40:55,898 - ERROR - 终止进程 PID=18132 失败: process no longer exists (pid=18132, name='chrome.exe')
+2025-11-24 17:40:55,898 - INFO - 正在终止进程 PID=28728...
+2025-11-24 17:40:55,898 - ERROR - 终止进程 PID=28728 失败: process no longer exists (pid=28728, name='chrome.exe')
+2025-11-24 17:40:55,898 - INFO - 正在终止进程 PID=29992...
+2025-11-24 17:40:55,899 - ERROR - 终止进程 PID=29992 失败: process no longer exists (pid=29992, name='chrome.exe')
+2025-11-24 17:40:55,899 - INFO - 正在终止进程 PID=38208...
+2025-11-24 17:40:55,899 - ERROR - 终止进程 PID=38208 失败: process no longer exists (pid=38208, name='chrome.exe')
+2025-11-24 17:40:55,899 - INFO - 已终止 3 个Chrome进程
+2025-11-24 17:40:56,906 - INFO - 所有Chrome进程已成功终止
+2025-11-24 17:40:56,906 - INFO - 正在通过端口查找Chrome进程...
+2025-11-24 17:40:56,942 - INFO - 正在清理用户数据目录...
+2025-11-24 17:40:56,942 - INFO - 正在清理目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_a5c6ddccb7ee4c9ea72a86c59ab29888
+2025-11-24 17:40:56,984 - INFO - 已成功删除目录: C:\Users\ASUS\AppData\Local\Temp\chrome_user_data_a5c6ddccb7ee4c9ea72a86c59ab29888
+2025-11-24 17:40:56,985 - INFO - 已清理 1 个用户数据目录
+2025-11-24 17:40:56,985 - INFO - 正在清理临时Chrome目录...
+2025-11-24 17:40:57,022 - INFO - 已清理 0 个临时Chrome目录
+2025-11-24 17:40:57,023 - INFO - ============================================================
+2025-11-24 17:40:57,023 - INFO - Chrome浏览器清理流程完成
+2025-11-24 17:40:57,023 - INFO - ============================================================
