@@ -26,9 +26,5 @@ Thumbs.db
 chrome_user_data_*/
 tmp*/
 
-# 忽略captured_html文件夹及其内容
-captured_html/
-*.html
-
 # 忽略演示视频文件（如果太大）
 演示.mp4

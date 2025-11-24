@@ -1,0 +1,8 @@
+# 告诉GitHub在语言统计时忽略captured_html文件夹
+captured_html/* linguist-vendored
+
+# 也可以明确指定某些文件类型不参与统计
+*.html linguist-vendored
+
+# 确保Python文件被正确识别
+*.py linguist-language=Python
